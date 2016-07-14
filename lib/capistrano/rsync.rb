@@ -74,7 +74,9 @@ namespace "rsync" do
 
   task :set_current_revision do
     run_locally do
-      set :current_revision, capture(:git, 'rev-parse', fetch(:branch))
+      within fetch(:local_cache) do
+        set :current_revision, capture(:git, 'rev-parse', fetch(:branch))
+      end
     end
   end
 
